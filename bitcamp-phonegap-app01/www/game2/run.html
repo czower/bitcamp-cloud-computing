@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RunGame</title>
+<style>
+#racecourse {
+	width: 500px;
+	height: 210px;
+	background-color: gray;
+	border-color: black; 
+	border-size: 1px;
+} 
+
+.course {
+	padding: 0px 0px 5px 0px;
+	height: 20px;
+	border: 1px solid black;
+}
+
+#racecourse #horse01 {
+	background-color: yellow;
+}
+
+#racecourse #horse02 {
+	background-color: green;	
+}
+
+#racecourse #horse03 {	
+	background-color: blue;	
+}
+
+#racecourse #horse04 {	
+	background-color: red;	
+}
+
+#racecourse #horse05 {	
+	background-color: yellow;	
+}
+
+#racecourse #horse06 {	
+	background-color: yellow;	
+}
+
+#racecourse #horse07 {	
+	background-color: yellow;
+}
+
+</style>
+</head>
+<body>
+<h1>Run...!</h1>
+<button id="start">Play</button>
+<br><br>
+<div id="racecourse">
+	<div id="horse01" class="course"></div>
+	<div id="horse02" class="course"></div>
+	<div id="horse03" class="course"></div>
+	<div id="horse04" class="course"></div>
+	<div id="horse05" class="course"></div>
+	<div id="horse06" class="course"></div>
+	<div id="horse07" class="course"></div>
+</div>
+
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script>
+start.onclick = function() {
+    console.log(parseInt(Math.random()*500));    
+}
+
+$('#horse01').css({
+   'width':'150px' 
+});
+
+</script>
+
+</body>
+</html>

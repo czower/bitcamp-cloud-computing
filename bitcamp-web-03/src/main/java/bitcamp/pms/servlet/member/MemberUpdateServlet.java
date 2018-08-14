@@ -2,15 +2,15 @@ package bitcamp.pms.servlet.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.pms.dao.MemberDao;
+import bitcamp.pms.domain.Member;
 
 @SuppressWarnings("serial")
 @WebServlet("/member/update")
@@ -35,23 +35,18 @@ public class MemberUpdateServlet extends HttpServlet {
         out.println("<h1>회원 변경 결과</h1>");
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (
-                Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/studydb",
-                    "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "update pms2_member set email=?, pwd=password(?) where mid=?");) {
-                
-                stmt.setString(1, request.getParameter("email"));
-                stmt.setString(2, request.getParameter("password"));
-                stmt.setString(3, request.getParameter("id"));
-                
-                if (stmt.executeUpdate() == 0) {
-                    out.println("<p>해당 회원이 존재하지 않습니다.</p>");
-                } else {
-                    out.println("<p>변경하였습니다.</p>");
-                }
+            Member member = new Member();
+            member.setId(request.getParameter("id"));
+            member.setEmail(request.getParameter("email"));
+            member.setPassword(request.getParameter("password"));
+            
+            MemberDao memberDao = 
+                    (MemberDao) getServletContext().getAttribute("memberDao");
+                 
+            if (memberDao.update(member) == 0) {
+                out.println("<p>해당 회원이 존재하지 않습니다.</p>");
+            } else {
+                out.println("<p>변경하였습니다.</p>");
             }
             
         } catch (Exception e) {
@@ -61,6 +56,7 @@ public class MemberUpdateServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
+    
 }
 
 
